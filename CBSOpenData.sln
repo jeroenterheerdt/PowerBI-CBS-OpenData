@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{4DF76451-A46A-4C0B-BE03-459FAAFA07E6}") = "CBSOpenData", "CBSOpenData\CBSOpenData.mproj", "{C74F24EA-BFBE-4E18-B1A8-254DB6A79585}"
+Project("{4DF76451-A46A-4C0B-BE03-459FAAFA07E6}") = "CBSOpenData", "CBSOpenData\CBSOpenData.mproj", "{98E05DE3-E57D-4FB5-AD5A-1F3D766045C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C74F24EA-BFBE-4E18-B1A8-254DB6A79585}.Debug|x86.ActiveCfg = Debug|x86
-		{C74F24EA-BFBE-4E18-B1A8-254DB6A79585}.Debug|x86.Build.0 = Debug|x86
-		{C74F24EA-BFBE-4E18-B1A8-254DB6A79585}.Release|x86.ActiveCfg = Release|x86
-		{C74F24EA-BFBE-4E18-B1A8-254DB6A79585}.Release|x86.Build.0 = Release|x86
+		{98E05DE3-E57D-4FB5-AD5A-1F3D766045C3}.Debug|x86.ActiveCfg = Debug|x86
+		{98E05DE3-E57D-4FB5-AD5A-1F3D766045C3}.Debug|x86.Build.0 = Debug|x86
+		{98E05DE3-E57D-4FB5-AD5A-1F3D766045C3}.Release|x86.ActiveCfg = Release|x86
+		{98E05DE3-E57D-4FB5-AD5A-1F3D766045C3}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A293B04F-C11C-4C80-9B3A-966987B7D8FF}
 	EndGlobalSection
 EndGlobal

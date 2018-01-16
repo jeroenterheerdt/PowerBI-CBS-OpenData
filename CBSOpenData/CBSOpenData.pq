@@ -19,7 +19,7 @@ BuildNavigationTable = (themeInput as text) as table =>
         ,addTables = Table.AddColumn(themes,"Data", each CreateTableNavigationTableForTheme([ThemeID]))
         ,addItemKind = Table.AddColumn(addTables,"ItemKind", each "Folder")
         ,addItemKind2 = Table.AddColumn(addItemKind,"ItemName",each "Folder")
-        ,addIsLeaf = Table.AddColumn(addItemKind2,"IsLeaf", each "false")
+       ,addIsLeaf = Table.AddColumn(addItemKind2,"IsLeaf", each "false")
         ,changeKey = Table.AddColumn(addIsLeaf, "ThemeID2", each "T"&Text.From([ThemeID]))
         ,removeThemeID = Table.RemoveColumns(changeKey,{"ThemeID"})
         ,NavTable = Table.ToNavigationTable(removeThemeID,{"ThemeID2"},"ThemeTitle","Data","ItemKind","ItemName","IsLeaf")
@@ -32,7 +32,7 @@ CreateTableNavigationTableForTheme = (themeID as number) as table =>
         tables = GetTablesForTheme(themeID)
         ,nestedjoin1 = Table.NestedJoin(tables,"TableID",GetTables,{"ID"},"NewColumn",JoinKind.LeftOuter)
         ,expanded1 = Table.ExpandTableColumn(nestedjoin1,"NewColumn",{"Identifier","Title"},{"Identifier","Title.1"})
-        ,rename1 = Table.RenameColumns(expanded1,{{"Identifier","TableIdentifier"}})
+        ,rename1 = Table.RenameColumns(expanded1,{{"Identifier","TableIdentifier2"}})
         ,rename2 = Table.RenameColumns(rename1,{{"Title.1","TableTitle"}})
         ,removeduplicates1 = Table.Distinct(rename2,{"TableIdentifier"})
         ,addItemKind = Table.AddColumn(removeduplicates1,"ItemKind",each "Table")
@@ -40,7 +40,7 @@ CreateTableNavigationTableForTheme = (themeID as number) as table =>
         ,addData = Table.AddColumn(addIsLeaf,"Data", each GetTableData([TableIdentifier]))
         ,removedcols = Table.RemoveColumns(addData,{"ID","ThemeID","TableID"})
         ,NavTable = Table.ToNavigationTable(removedcols,{"TableIdentifier"},"TableTitle","Data","ItemKind","ItemKind","IsLeaf")
-        in NavTable;
+        in expanded1;
 
 GetTheme = (themeInput as text) =>
     let
