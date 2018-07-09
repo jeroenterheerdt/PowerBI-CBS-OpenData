@@ -2,8 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>
-    </ProjectGuid>
+    <ProjectGuid>{95146a75-e029-4e9a-8409-0d317f511a5c}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>MyRootNamespace</RootNamespace>
     <AssemblyName>MyAssemblyName</AssemblyName>
@@ -96,14 +95,23 @@
 ]]></Code>
     </Task>
   </UsingTask>
-  <Target Name="BuildExtension">
+  <Target Name="BuildExtension" DependsOnTargets="ExtensionClean">
     <ItemGroup>
       <PQFiles Include="@(Compile)" Condition="'%(Extension)' == '.pq'" />
     </ItemGroup>
+    <ItemGroup>
+      <NonPQFiles Include="@(Compile)" Condition="'%(Extension)' != '.pq'" />
+    </ItemGroup>
     <MakeDir Directories="$(IntermediateOutputPath)" />
     <MakeDir Directories="$(OutputPath)" />
-    <Copy SourceFiles="@(Compile)" DestinationFolder="$(IntermediateOutputPath)" />
+    <Copy SourceFiles="@(NonPQFiles)" DestinationFolder="$(IntermediateOutputPath)" />
     <Copy SourceFiles="@(PQFiles)" DestinationFiles="@(PQFiles->'$(IntermediateOutputPath)%(RecursiveDir)%(FileName).m')" />
     <BuildExtension InputDirectory="$(IntermediateOutputPath)" OutputFile="$(OutputPath)\$(ProjectName).mez" />
+  </Target>
+  <Target Name="ExtensionClean">
+    <!-- Remove obj folder -->
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <!-- Remove bin folder -->
+    <RemoveDir Directories="$(OutputPath)" />
   </Target>
 </Project>

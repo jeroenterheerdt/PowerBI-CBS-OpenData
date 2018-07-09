@@ -1,4 +1,5 @@
 ﻿//CBSOpenData.Contents("82010NED")
 //NavigationTable.Simple()
-OpenData("arbeid")
+let result = CBSOpenData.OpenData("arbeid")
+in result
 //Themes("4")

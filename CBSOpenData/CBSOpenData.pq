@@ -10,7 +10,7 @@ ODataCatalog=CBSBaseURL&"/ODataCatalog/";
 //Exported functions
 [DataSource.Kind="CBSOpenData", Publish="CBSOpenData.Publish"]
 //shared CBSOpenData.Contents = Value.ReplaceType(GetTableData,type function(tableID as Text.Type) as any);
-shared OpenData = Value.ReplaceType(BuildNavigationTable, type function(thema as Text.Type) as any);
+shared CBSOpenData.OpenData = Value.ReplaceType(BuildNavigationTable, type function(thema as Text.Type) as any);
 
 //sample input: arbeid
 BuildNavigationTable = (themeInput as text) as table =>
