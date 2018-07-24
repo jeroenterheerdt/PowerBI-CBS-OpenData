@@ -26,9 +26,10 @@ BuildNavigationTable = (themeInput as text) as table =>
     in
         NavTable;
 
-//sample input: 4
+//sample input: 15
 CreateTableNavigationTableForTheme = (themeID as number) as table =>
     let
+        
         tables = GetTablesForTheme(themeID)
         ,nestedjoin1 = Table.NestedJoin(tables,"TableID",GetTables,{"ID"},"NewColumn",JoinKind.LeftOuter)
         ,expanded1 = Table.ExpandTableColumn(nestedjoin1,"NewColumn",{"Identifier","Title"},{"Identifier","Title.1"})
@@ -36,11 +37,11 @@ CreateTableNavigationTableForTheme = (themeID as number) as table =>
         ,rename2 = Table.RenameColumns(rename1,{{"Title.1","TableTitle"}})
         ,removeduplicates1 = Table.Distinct(rename2,{"TableIdentifier"})
         ,addItemKind = Table.AddColumn(removeduplicates1,"ItemKind",each "Table")
-        ,addIsLeaf = Table.AddColumn(addItemKind,"IsLeaf",each "true")
+        ,addIsLeaf = Table.AddColumn(addItemKind,"IsLeaf",each "false")       
         ,addData = Table.AddColumn(addIsLeaf,"Data", each GetTableData([TableIdentifier]))
         ,removedcols = Table.RemoveColumns(addData,{"ID","ThemeID","TableID"})
-        ,NavTable = Table.ToNavigationTable(removedcols,{"TableIdentifier"},"TableTitle","Data","ItemKind","ItemKind","IsLeaf")
-        in expanded1;
+        ,NavTable = Table.ToNavigationTable(addData,{"TableIdentifier"},"TableTitle","Data","ItemKind","ItemKind","IsLeaf")
+        in NavTable;
 
 GetTheme = (themeInput as text) =>
     let
@@ -69,6 +70,7 @@ GetTables = () =>
 in
     Source;
 
+//sample input: 83294NED
 GetTableData = (tableID as text) =>
     let
         Source = OData.Feed(ODataFeed&tableID)
